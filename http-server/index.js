@@ -1,4 +1,5 @@
 const http = require("http");
+const url = require('url');
 const fs = require("fs");
 
 let homeContent = "";
@@ -24,7 +25,8 @@ fs.readFile("registration.html", (err, registration) => {
   }
   registrationContent = registration;
 });
-
+const portArg = process.argv.find(arg => arg.startsWith('--port'));
+const port = portArg ? portArg.split(' ')[1] : 3000;
 http
   .createServer((request, response) => {
     let url = request.url;
