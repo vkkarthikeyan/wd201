@@ -18,6 +18,13 @@ fs.readFile("project.html", (err, project) => {
   projectContent = project;
 });
 
+fs.readFile("registration.html", (err, registration) => {
+  if (err) {
+    throw err;
+  }
+  registrationContent = registration;
+});
+
 http
   .createServer((request, response) => {
     let url = request.url;
@@ -27,10 +34,14 @@ http
         response.write(projectContent);
         response.end();
         break;
+        case "/registration":
+          response.write(registrationContent);
+          response.end();
+          break;
       default:
         response.write(homeContent);
         response.end();
         break;
     }
   })
-  .listen(3000);
+  .listen(5000);
