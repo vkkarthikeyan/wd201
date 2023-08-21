@@ -1,32 +1,31 @@
 const http = require('http')
 const fs = require('fs')
-
-let homeContent = ''
-let projectContent = ''
-let registrationContent = ''
+const args = require('minimist')(process.argv)
+const port = args.port
+let homepage = ''
+let projectpage = ''
+let registrationpage = ''
 
 fs.readFile('home.html', (err, home) => {
   if (err) {
     throw err
   }
-  homeContent = home
+  homepage = home
 })
 
 fs.readFile('project.html', (err, project) => {
   if (err) {
     throw err
   }
-  projectContent = project
+  projectpage = project
 })
 
 fs.readFile('registration.html', (err, registration) => {
   if (err) {
     throw err
   }
-  registrationContent = registration
+  registrationpage = registration
 })
-
-const port = process.argv[2] || 3000
 
 http
   .createServer((request, response) => {
@@ -34,17 +33,15 @@ http
     response.writeHeader(200, { 'Content-Type': 'text/html' })
     switch (url) {
       case '/project':
-        response.write(projectContent)
+        response.write(projectpage)
         response.end()
         break
-
       case '/registration':
-        response.write(registrationContent)
+        response.write(registrationpage)
         response.end()
         break
-
       default:
-        response.write(homeContent)
+        response.write(homepage)
         response.end()
         break
     }
