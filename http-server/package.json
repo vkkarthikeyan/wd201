@@ -1,7 +1,7 @@
 {
-  "name": "hello-world",
+  "name": "http-server",
   "version": "1.0.0",
-  "description": "web development course",
+  "description": "HTTP server",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
