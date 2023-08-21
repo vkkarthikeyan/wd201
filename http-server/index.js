@@ -26,6 +26,8 @@ fs.readFile('registration.html', (err, registration) => {
   registrationContent = registration
 })
 
+const port = process.argv[2] || 3000
+
 http
   .createServer((request, response) => {
     const url = request.url
@@ -47,4 +49,4 @@ http
         break
     }
   })
-  .listen(3000)
+  .listen(port)
