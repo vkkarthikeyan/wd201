@@ -13,7 +13,7 @@ const todoList = () => {
     const today = new Date()
     return all.filter((item) => {
       const dueDate = new Date(item.dueDate)
-      return !item.completed && dueDate < today
+      return !item.completed && dueDate < today && dueDate.toISOString().split('T')[0] !== today.toISOString().split('T')[0]
     })
   }
 
@@ -21,11 +21,7 @@ const todoList = () => {
     const today = new Date()
     return all.filter((item) => {
       const dueDate = new Date(item.dueDate)
-      return (
-        !item.completed &&
-        dueDate.toISOString().split('T')[0] ===
-          today.toISOString().split('T')[0]
-      )
+      return dueDate.toISOString().split('T')[0] === today.toISOString().split('T')[0]
     })
   }
 
@@ -38,10 +34,13 @@ const todoList = () => {
   }
 
   const toDisplayableList = (list) => {
-    return list.map((item) => {
-      const checkbox = item.completed ? '[x]' : '[ ]'
-      return `${checkbox} ${item.title} ${item.dueDate}`
-    }).join('\n')
+    return list
+      .map((item) => {
+        const checkbox = item.completed ? '[x]' : '[ ]'
+        const titleAndDate = item.dueDate !== today ? ` ${item.dueDate}` : ''
+        return `${checkbox} ${item.title}${titleAndDate}`
+      })
+      .join('\n')
   }
 
   return {
